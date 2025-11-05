@@ -9,11 +9,11 @@ import { PromotionalBanner } from "./promotional-banner";
 export function LeadGenerationComponents() {
   return (
     <>
-      {/* Exit Intent Popup */}
-      <NewsletterPopup trigger="exit-intent" />
+      {/* Exit Intent Popup - Commented out for now */}
+      {/* <NewsletterPopup trigger="exit-intent" /> */}
       
-      {/* Time-based Popup (shows after 10 seconds) */}
-      <NewsletterPopup trigger="time-based" delay={10} />
+      {/* Time-based Popup (shows after 10 seconds) - Commented out for now */}
+      {/* <NewsletterPopup trigger="time-based" delay={10} /> */}
       
       {/* Floating CTA Button */}
       <FloatingCTA showAfterScroll={300} />

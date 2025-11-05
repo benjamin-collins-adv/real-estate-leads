@@ -149,9 +149,9 @@ export default function ResourcesPage() {
       </section>
 
       {/* Category Filters */}
-      <section className="py-8 border-b bg-background/50 sticky top-16 z-40 backdrop-blur">
+      <section className="py-4 sm:py-6 border-b bg-background/50 sticky top-14 sm:top-16 z-40 backdrop-blur overflow-x-auto">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center gap-3 justify-center">
+          <div className="flex items-center gap-3 justify-start sm:justify-center min-w-max sm:min-w-0">
             {categories.map((category) => {
               const Icon = category.icon;
               return (

@@ -41,23 +41,20 @@ export default function ContactPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-primary/5 py-8 sm:py-12 md:py-16">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative bg-background py-12 sm:py-16 md:py-20 overflow-hidden">
+        <div className="absolute inset-0 overflow-hidden pointer-events-none">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-primary/3 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-primary/3 rounded-full blur-3xl"></div>
+        </div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight">
               Get in Touch
             </h1>
-            <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
+            <p className="text-base sm:text-lg text-muted-foreground">
               Have questions? Need property information? We're here to help. Send us a message and we'll get back to you within 24 hours.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* Social Proof */}
-      <section className="py-8 sm:py-12">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <SocialProof variant="inline" />
         </div>
       </section>
 
@@ -68,9 +65,9 @@ export default function ContactPage() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
               {/* Contact Form */}
               <div className="lg:col-span-2">
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-2xl">Send us a Message</CardTitle>
+                <Card className="border-2">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-xl sm:text-2xl">Send us a Message</CardTitle>
                   </CardHeader>
                   <CardContent>
                     {submitted ? (
@@ -84,8 +81,8 @@ export default function ContactPage() {
                         </p>
                       </div>
                     ) : (
-                      <form onSubmit={handleSubmit} className="space-y-6">
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <form onSubmit={handleSubmit} className="space-y-5">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <Label htmlFor="name">Full Name *</Label>
                             <Input
@@ -110,7 +107,7 @@ export default function ContactPage() {
                             />
                           </div>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                           <div className="space-y-2">
                             <Label htmlFor="phone">Phone Number</Label>
                             <Input
@@ -139,11 +136,12 @@ export default function ContactPage() {
                           <Textarea
                             id="message"
                             name="message"
-                            rows={6}
+                            rows={5}
                             placeholder="Tell us how we can help you..."
                             value={formData.message}
                             onChange={handleChange}
                             required
+                            className="resize-none"
                           />
                         </div>
                         <Button type="submit" size="lg" className="w-full">
@@ -157,18 +155,18 @@ export default function ContactPage() {
               </div>
 
               {/* Contact Info */}
-              <div className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Contact Information</CardTitle>
+              <div className="space-y-4">
+                <Card className="border-2">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg">Contact Information</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-6">
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                  <CardContent className="space-y-5">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Phone className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold mb-1">Phone</h3>
+                        <h3 className="font-semibold mb-1 text-sm">Phone</h3>
                         <p className="text-sm text-muted-foreground">
                           +1 (555) 123-4567
                         </p>
@@ -177,12 +175,12 @@ export default function ContactPage() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <Mail className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold mb-1">Email</h3>
+                        <h3 className="font-semibold mb-1 text-sm">Email</h3>
                         <p className="text-sm text-muted-foreground">
                           info@primerealty.com
                         </p>
@@ -191,12 +189,12 @@ export default function ContactPage() {
                         </p>
                       </div>
                     </div>
-                    <div className="flex items-start gap-4">
-                      <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center flex-shrink-0">
+                    <div className="flex items-start gap-3">
+                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
                         <MapPin className="h-5 w-5 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold mb-1">Address</h3>
+                        <h3 className="font-semibold mb-1 text-sm">Address</h3>
                         <p className="text-sm text-muted-foreground">
                           123 Main Street<br />
                           City, State 12345
@@ -206,21 +204,21 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Office Hours</CardTitle>
+                <Card className="border-2">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg">Office Hours</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3 text-sm">
-                      <div className="flex justify-between">
+                      <div className="flex justify-between items-center py-1">
                         <span className="text-muted-foreground">Monday - Friday</span>
                         <span className="font-medium">9:00 AM - 6:00 PM</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between items-center py-1">
                         <span className="text-muted-foreground">Saturday</span>
                         <span className="font-medium">10:00 AM - 4:00 PM</span>
                       </div>
-                      <div className="flex justify-between">
+                      <div className="flex justify-between items-center py-1">
                         <span className="text-muted-foreground">Sunday</span>
                         <span className="font-medium">Closed</span>
                       </div>
@@ -228,36 +226,36 @@ export default function ContactPage() {
                   </CardContent>
                 </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Follow Us</CardTitle>
+                <Card className="border-2">
+                  <CardHeader className="pb-4">
+                    <CardTitle className="text-lg">Follow Us</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <div className="flex gap-4">
+                    <div className="flex gap-3">
                       <a
                         href="#"
-                        className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                        className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                         aria-label="Facebook"
                       >
                         <Facebook className="h-5 w-5" />
                       </a>
                       <a
                         href="#"
-                        className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                        className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                         aria-label="Twitter"
                       >
                         <Twitter className="h-5 w-5" />
                       </a>
                       <a
                         href="#"
-                        className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                        className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                         aria-label="LinkedIn"
                       >
                         <Linkedin className="h-5 w-5" />
                       </a>
                       <a
                         href="#"
-                        className="w-10 h-10 rounded-full bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
+                        className="w-10 h-10 rounded-lg bg-muted flex items-center justify-center hover:bg-primary hover:text-primary-foreground transition-colors"
                         aria-label="Instagram"
                       >
                         <Instagram className="h-5 w-5" />

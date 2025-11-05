@@ -34,33 +34,34 @@ export function PromotionalBanner({
 
   return (
     <div className={`${variants[variant]} py-2 sm:py-3`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="flex items-center gap-3 flex-1">
+      <div className="container mx-auto px-3 sm:px-4 lg:px-8">
+        <div className="flex items-center justify-between gap-2 sm:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
             <Megaphone className="h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-            <div className="flex-1 text-center sm:text-left">
-              <p className="font-semibold text-sm sm:text-base">{title}</p>
+            <div className="flex-1 min-w-0">
+              <p className="font-semibold text-xs sm:text-sm md:text-base truncate">{title}</p>
               {description && (
-                <p className="text-xs sm:text-sm opacity-90 mt-0.5">{description}</p>
+                <p className="text-xs sm:text-sm opacity-90 mt-0.5 hidden sm:block">{description}</p>
               )}
             </div>
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 flex-shrink-0">
             <Button
               asChild
               variant="secondary"
               size="sm"
-              className="whitespace-nowrap"
+              className="whitespace-nowrap text-xs sm:text-sm h-7 sm:h-9 px-2 sm:px-4"
             >
-              <Link href={ctaLink}>
-                {ctaText}
-                <ArrowRight className="ml-2 h-4 w-4" />
+              <Link href={ctaLink} className="flex items-center gap-1 sm:gap-2">
+                <span className="hidden sm:inline">{ctaText}</span>
+                <span className="sm:hidden">Download</span>
+                <ArrowRight className="h-3 w-3 sm:h-4 sm:w-4" />
               </Link>
             </Button>
             {dismissible && (
               <button
                 onClick={() => setVisible(false)}
-                className="p-1 hover:opacity-70 transition-opacity"
+                className="p-1 hover:opacity-70 transition-opacity flex-shrink-0"
                 aria-label="Dismiss banner"
               >
                 <X className="h-4 w-4 sm:h-5 sm:w-5" />
