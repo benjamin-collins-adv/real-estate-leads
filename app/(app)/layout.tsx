@@ -16,8 +16,23 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "PrimeRealty - Find Your Dream Home",
+  title: {
+    default: "PrimeRealty - Find Your Dream Home",
+    template: "%s | PrimeRealty",
+  },
   description: "Discover premium properties and find your perfect home with PrimeRealty. Expert real estate services for buying, selling, and renting.",
+  keywords: ["real estate", "properties", "homes for sale", "homes for rent", "real estate listings", "property search"],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "PrimeRealty",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({

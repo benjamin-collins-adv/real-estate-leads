@@ -2,17 +2,17 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { PropertyCard } from "@/components/property-card";
 import { BlogCard } from "@/components/blog-card";
-import { getFeaturedProperties } from "@/lib/data";
-import { getFeaturedPosts } from "@/lib/blog-data";
+import { getFeaturedProperties } from "@/lib/payload";
+import { getFeaturedBlogs } from "@/lib/payload";
 import { Search, TrendingUp, Shield, Users } from "lucide-react";
 import { NewsletterSignup } from "@/components/lead-generation/newsletter-signup";
 import { SocialProof } from "@/components/lead-generation/social-proof";
 import { InformationRequest } from "@/components/lead-generation/information-request";
 import { QuoteRequest } from "@/components/lead-generation/quote-request";
 
-export default function Home() {
-  const featuredProperties = getFeaturedProperties();
-  const featuredPosts = getFeaturedPosts();
+export default async function Home() {
+  const featuredProperties = await getFeaturedProperties(3);
+  const featuredPosts = await getFeaturedBlogs(3);
 
   return (
     <div className="flex min-h-screen flex-col">

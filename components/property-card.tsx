@@ -22,7 +22,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
 
   return (
     <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg h-full flex flex-col">
-      <Link href={`/properties/${property.id}`}>
+      <Link href={`/properties/${property.slug}`}>
         <div className="relative h-48 sm:h-56 md:h-64 w-full overflow-hidden">
           <Image
             src={property.image}
@@ -32,9 +32,19 @@ export function PropertyCard({ property }: PropertyCardProps) {
           />
           <Badge 
             className="absolute top-3 right-3 sm:top-4 sm:right-4 text-xs"
-            variant={property.status === "for-sale" ? "default" : "secondary"}
+            variant={
+              property.status === "for-sale" 
+                ? "default" 
+                : property.status === "for-rent"
+                ? "secondary"
+                : "outline"
+            }
           >
-            {property.status === "for-sale" ? "For Sale" : "For Rent"}
+            {property.status === "for-sale" 
+              ? "For Sale" 
+              : property.status === "for-rent"
+              ? "For Rent"
+              : property.status.charAt(0).toUpperCase() + property.status.slice(1).replace("-", " ")}
           </Badge>
           <Badge className="absolute top-3 left-3 sm:top-4 sm:left-4 text-xs" variant="outline">
             {property.type.charAt(0).toUpperCase() + property.type.slice(1)}
@@ -43,7 +53,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
       </Link>
 
       <CardHeader className="flex-1">
-        <Link href={`/properties/${property.id}`}>
+        <Link href={`/properties/${property.slug}`}>
           <h3 className="text-lg sm:text-xl font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2">
             {property.title}
           </h3>
@@ -77,7 +87,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
 
       <CardFooter>
         <Button asChild className="w-full text-sm sm:text-base">
-          <Link href={`/properties/${property.id}`}>View Details</Link>
+          <Link href={`/properties/${property.slug}`}>View Details</Link>
         </Button>
       </CardFooter>
     </Card>
