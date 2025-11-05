@@ -1,7 +1,12 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Calendar, Clock, ArrowRight } from "lucide-react";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import type { BlogPost } from "@/types/blog";
 
@@ -20,16 +25,23 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
   };
 
   return (
-    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg h-full flex flex-col">
+    <Card className="group overflow-hidden transition-all duration-300 hover:shadow-lg h-full flex flex-col pt-0">
       <Link href={`/blog/${post.slug}`}>
-        <div className={`relative w-full overflow-hidden ${featured ? "h-48 sm:h-56 md:h-64" : "h-40 sm:h-48"}`}>
+        <div
+          className={`relative w-full overflow-hidden ${
+            featured ? "h-48 sm:h-56 md:h-64" : "h-40 sm:h-48"
+          }`}
+        >
           <Image
             src={post.image}
             alt={post.title}
             fill
             className="object-cover transition-transform duration-300 group-hover:scale-110"
           />
-          <Badge className="absolute top-3 left-3 sm:top-4 sm:left-4 text-xs" variant="secondary">
+          <Badge
+            className="absolute top-3 left-3 sm:top-4 sm:left-4 text-xs"
+            variant="secondary"
+          >
             {post.category}
           </Badge>
         </div>
@@ -37,7 +49,11 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
 
       <CardHeader className="flex-1">
         <Link href={`/blog/${post.slug}`}>
-          <h3 className={`font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2 ${featured ? "text-lg sm:text-xl" : "text-base sm:text-lg"}`}>
+          <h3
+            className={`font-semibold group-hover:text-primary transition-colors mb-2 line-clamp-2 ${
+              featured ? "text-lg sm:text-xl" : "text-base sm:text-lg"
+            }`}
+          >
             {post.title}
           </h3>
         </Link>
@@ -50,7 +66,9 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
         <div className="flex flex-wrap items-center gap-3 sm:gap-4 text-xs text-muted-foreground">
           <div className="flex items-center gap-1">
             <Calendar className="h-3 w-3" />
-            <span className="whitespace-nowrap">{formatDate(post.publishedAt)}</span>
+            <span className="whitespace-nowrap">
+              {formatDate(post.publishedAt)}
+            </span>
           </div>
           {post.readTime && (
             <div className="flex items-center gap-1">
@@ -82,4 +100,3 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
     </Card>
   );
 }
-

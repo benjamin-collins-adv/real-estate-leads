@@ -2,11 +2,18 @@ import type { BlogPost } from "@/types/blog";
 import type { Property } from "@/types/property";
 
 // Payload CMS API response types
+// When using S3 storage, Payload stores full S3 URLs in the url field
 interface PayloadMedia {
   id: string;
-  url?: string | null;
+  url?: string | null; // Full S3 URL when using S3 storage (e.g., https://bucket.s3.region.amazonaws.com/media/file.jpg)
   sizes?: {
     medium?: {
+      url?: string | null; // Full S3 URL for resized images
+    };
+    thumbnail?: {
+      url?: string | null;
+    };
+    large?: {
       url?: string | null;
     };
   };
@@ -34,7 +41,7 @@ interface PayloadBlogResponse {
   title: string;
   slug: string;
   excerpt: string;
-  featuredImage: string | PayloadMedia;
+  featuredImage: string | PayloadMedia; // Full S3 URL when using S3 storage
   category: string | PayloadCategory;
   author: string | PayloadUser;
   tags?: PayloadTag[];
@@ -63,8 +70,8 @@ interface PayloadPropertyResponse {
   id: string;
   title: string;
   slug: string;
-  featuredImage: string | PayloadMedia;
-  gallery?: Array<{ image: string | PayloadMedia }>;
+  featuredImage: string | PayloadMedia; // Full S3 URL when using S3 storage
+  gallery?: Array<{ image: string | PayloadMedia }>; // Full S3 URLs when using S3 storage
   address: {
     street: string;
     city: string;
@@ -171,42 +178,49 @@ function getApiUrl(): string {
 }
 
 // Simple helper to normalize media URLs from Payload
+// When using S3 storage, Payload stores full S3 URLs directly
 function normalizeMediaUrl(url: string | undefined | null): string {
   if (!url) return "";
 
-  // Already full URL, return as-is
+  // If it's already a full URL (S3 or any other), return as-is
   if (url.startsWith("http://") || url.startsWith("https://")) {
     return url;
   }
 
-  const base = getBaseUrl();
-
-  // If it already has /api/media, use it as-is (Payload serves media through /api/media/)
+  // If it's a relative path starting with /api/media/, add base URL if needed
   if (url.startsWith("/api/media/")) {
+    const base = getBaseUrl();
     return base ? `${base}${url}` : url;
   }
 
-  // If it's /media/, convert to /api/media/ (Payload serves through API)
+  // If it's a relative path starting with /media/, convert to API path
   if (url.startsWith("/media/")) {
+    const base = getBaseUrl();
     const apiPath = url.replace("/media/", "/api/media/");
     return base ? `${base}${apiPath}` : apiPath;
   }
 
-  // If it's just a filename or ID, construct /api/media/ path
+  // If it's just a filename or ID, construct /api/media/ path (fallback for local storage)
+  const base = getBaseUrl();
   const apiPath = url.startsWith("/") ? `/api${url}` : `/api/media/${url}`;
   return base ? `${base}${apiPath}` : apiPath;
 }
 
 // Transform Payload blog data to BlogPost format
 function transformBlog(blog: PayloadBlogResponse): BlogPost {
-  // Get image URL
+  // Get image URL - with S3 storage, Payload returns full S3 URLs
   let imageUrl = "";
   if (blog.featuredImage) {
     if (typeof blog.featuredImage === "string") {
+      // If it's a string, it could be an ID (local) or S3 URL
       imageUrl = normalizeMediaUrl(blog.featuredImage);
     } else {
+      // Media object - with S3, url contains full S3 URL
+      // Prefer medium size if available, otherwise use full size
       const url =
-        blog.featuredImage.url || blog.featuredImage.sizes?.medium?.url || "";
+        blog.featuredImage.sizes?.medium?.url ||
+        blog.featuredImage.url ||
+        "";
       imageUrl = normalizeMediaUrl(url);
     }
   }
@@ -250,7 +264,7 @@ function transformBlog(blog: PayloadBlogResponse): BlogPost {
       name: authorName,
       avatar:
         typeof blog.author === "object" && blog.author.avatar?.url
-          ? blog.author.avatar.url
+          ? normalizeMediaUrl(blog.author.avatar.url)
           : undefined,
     },
     publishedAt: blog.publishedAt ?? blog.createdAt ?? new Date().toISOString(),
@@ -444,15 +458,18 @@ function escapeHtml(text: string): string {
 
 // Transform Payload property data to Property format
 function transformProperty(property: PayloadPropertyResponse): Property {
-  // Get image URL
+  // Get image URL - with S3 storage, Payload returns full S3 URLs
   let imageUrl = "";
   if (property.featuredImage) {
     if (typeof property.featuredImage === "string") {
+      // If it's a string, it could be an ID (local) or S3 URL
       imageUrl = normalizeMediaUrl(property.featuredImage);
     } else {
+      // Media object - with S3, url contains full S3 URL
+      // Prefer medium size if available, otherwise use full size
       const url =
-        property.featuredImage.url ||
         property.featuredImage.sizes?.medium?.url ||
+        property.featuredImage.url ||
         "";
       imageUrl = normalizeMediaUrl(url);
     }
