@@ -515,7 +515,7 @@ export async function getProperties(filters?: {
   try {
     const apiUrl = getApiUrl();
     let queryParams =
-      "where[published][equals]=true&limit=100&sort=-updatedAt&depth=2";
+      "status=published&where[published][equals]=true&limit=100&sort=-updatedAt&depth=2";
 
     // Add filters
     if (filters?.type && filters.type !== "all") {
@@ -585,7 +585,7 @@ export async function getPropertyBySlug(
   try {
     const apiUrl = getApiUrl();
     const response = await fetch(
-      `${apiUrl}/properties?where[slug][equals]=${slug}&where[published][equals]=true&limit=1&depth=2`,
+      `${apiUrl}/properties?status=published&where[slug][equals]=${slug}&where[published][equals]=true&limit=1&depth=2`,
       {
         next: { revalidate: 60 },
       }
@@ -615,7 +615,7 @@ export async function getFeaturedProperties(
   try {
     const apiUrl = getApiUrl();
     const response = await fetch(
-      `${apiUrl}/properties?where[featured][equals]=true&where[published][equals]=true&limit=${limit}&sort=-updatedAt&depth=2`,
+      `${apiUrl}/properties?status=published&where[featured][equals]=true&where[published][equals]=true&limit=${limit}&sort=-updatedAt&depth=2`,
       {
         next: { revalidate: 60 },
       }

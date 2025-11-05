@@ -53,6 +53,9 @@ importers:
       payload:
         specifier: ^3.62.1
         version: 3.62.1(graphql@16.12.0)(typescript@5.9.3)
+      pg:
+        specifier: ^8.16.3
+        version: 8.16.3
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -72,6 +75,9 @@ importers:
       '@types/node':
         specifier: ^20
         version: 20.19.24
+      '@types/pg':
+        specifier: ^8.15.6
+        version: 8.15.6
       '@types/react':
         specifier: ^19
         version: 19.2.2
@@ -1865,6 +1871,9 @@ packages:
 
   '@types/pg@8.10.2':
     resolution: {integrity: sha512-MKFs9P6nJ+LAeHLU3V0cODEOgyThJ3OAnmOlsZsxux6sfQs3HRXR5bBn7xG5DjckEFhTAxsXi7k7cd0pCMxpJw==}
+
+  '@types/pg@8.15.6':
+    resolution: {integrity: sha512-NoaMtzhxOrubeL/7UZuNTrejB4MPAJ0RpxZqXQf2qXuVlTPuG6Y8p4u9dKRaue4yjmC7ZhzVO2/Yyyn25znrPQ==}
 
   '@types/react-dom@19.2.2':
     resolution: {integrity: sha512-9KQPoO6mZCi7jcIStSnlOWn2nEF3mNmyr3rIAsGnAbQKYbRLyqmeSc39EVgtxXVia+LMT8j3knZLAZAh+xLmrw==}
@@ -6738,6 +6747,12 @@ snapshots:
       '@types/node': 20.19.24
       pg-protocol: 1.10.3
       pg-types: 4.1.0
+
+  '@types/pg@8.15.6':
+    dependencies:
+      '@types/node': 20.19.24
+      pg-protocol: 1.10.3
+      pg-types: 2.2.0
 
   '@types/react-dom@19.2.2(@types/react@19.2.2)':
     dependencies:

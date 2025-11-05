@@ -239,9 +239,7 @@ export const Properties: CollectionConfig = {
       ],
     },
   ],
-  // Temporarily disabled drafts to avoid enum migration issues
-  // Re-enable after running the database migration if needed
-  // versions: {
-  //   drafts: true,
-  // },
+  versions: {
+    drafts: true,
+  },
 };
